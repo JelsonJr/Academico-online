@@ -1,23 +1,13 @@
-﻿{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:55225",
-      "sslPort": 44374
-    }
-  },
+{
   "profiles": {
     "Academico_online_backend": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7050;http://localhost:5231",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7050;http://localhost:5231"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -26,6 +16,24 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "launchUrl": "https://localhost:7050/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7050;http://localhost:5231"
+      },
+      "distributionName": ""
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:55225",
+      "sslPort": 44374
     }
   }
 }
