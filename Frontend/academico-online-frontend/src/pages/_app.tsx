@@ -1,6 +1,13 @@
-import 'components/styles/globals.css'
+import { ToastProvider } from 'components/context/ToastContext'
+import 'components/styles/globals.scss'
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <ToastProvider>
+        <Component {...pageProps} />
+      </ToastProvider>
+    </>
+  )
 }
