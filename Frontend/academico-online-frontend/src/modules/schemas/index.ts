@@ -15,6 +15,8 @@ const formUserLogin ={
 
 const validaRA = async (ra: string, showToast: Function) => {
   try {
+    if(ra.trim() === '') return; 
+
     await formUserLogin.ra.validate(ra);
   } catch(erro) {
     new ErrorValidator(erro).devolveErroTratado(showToast);
@@ -23,6 +25,8 @@ const validaRA = async (ra: string, showToast: Function) => {
 
 const validaSenha = async (senha: string, showToast: Function) =>  {
   try {
+    if(senha.trim() === '') return;
+
     await formUserLogin.senha.validate(senha);
   } catch(erro) {
     new ErrorValidator(erro).devolveErroTratado(showToast);
