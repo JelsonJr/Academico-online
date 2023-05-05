@@ -5,8 +5,7 @@ import { useManagementStore } from "components/store/management/managementStore"
 import { TextField } from "@mui/material";
 import { FaUserCheck } from "react-icons/fa";
 import Link from "next/link";
-import { removeLetters } from "components/utils/removeLetters";
-import { formUserLogin } from "components/modules/schemas";
+import { validaRA, validaSenha } from "components/modules/schemas";
 import { useCallback, useContext } from "react";
 import { ToastContext } from "components/context/ToastContext";
 
@@ -16,23 +15,7 @@ export default function LoginPage() {
   const size = UseWindowSize();
 
   const handleClick = useCallback(
-    async () => {
-      // e.preventDefault();
-      try {
-        await formUserLogin.validate({
-          ra: form?.ra,
-          senha: form?.senha,
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          showToast({ message: error.message, status: "error" });
-          console.warn(error.message);
-        } else {
-          console.warn('Unexpected error', error);
-        }
-      }
-    },
-    [form]
+   () => console.log('teste'), [form]
   );
 
   return (
@@ -79,11 +62,12 @@ export default function LoginPage() {
               id="outlined-basic"
               label="RA"
               variant="outlined"
-              value={removeLetters(form.ra)}
+              type="number"
+              value={form.ra}
               onChange={(e) =>
-                useManagementStore.setState((s) => ({ ...s, form: { ...s.form, ra: removeLetters(e.target.value)}}))
+                useManagementStore.setState((s) => ({ ...s, form: { ...s.form, ra: (e.target.value)}}))
               }
-              type="text"
+              onBlur={() => validaRA(form?.ra, showToast)}
             />
             <TextField
               id="outlined-basic"
@@ -91,6 +75,7 @@ export default function LoginPage() {
               variant="outlined"
               type="password"
               value={form.senha}
+              onBlur={() => validaSenha(form?.senha, showToast)}
               onChange={(e) =>
                 useManagementStore.setState((s) => ({ ...s, form: { ...s.form, senha: e.target.value}}))
               }
