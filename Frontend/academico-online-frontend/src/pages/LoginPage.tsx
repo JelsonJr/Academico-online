@@ -6,17 +6,29 @@ import { TextField } from "@mui/material";
 import { FaUserCheck } from "react-icons/fa";
 import Link from "next/link";
 import { validaRA, validaSenha } from "components/modules/schemas";
-import { useCallback, useContext } from "react";
+import { FormEvent, useCallback, useContext } from "react";
 import { ToastContext } from "components/context/ToastContext";
+import { login } from "components/services/ApiService";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const form = useManagementStore((s) => s.form);
   const { showToast } = useContext(ToastContext);
   const size = UseWindowSize();
 
-  const handleClick = useCallback(
-   () => console.log('teste'), [form]
-  );
+  const handleClick = useCallback(async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if(!form.ra || !form.senha) {
+      return toast("Campos obrigatórios não preenchidos.", { type: "error"});;
+    }
+
+    const data = await login({ RA: form.ra, Senha: form.senha });
+    
+    data ? toast(data.mensagem, { type: "success"})
+      : toast("Não foi possível realizar o login.", { type: "error"});
+
+  }, [form]);
 
   return (
     <section className="w-full min-h-[100vh] flex items-center">
@@ -57,7 +69,7 @@ export default function LoginPage() {
               Acesso ao sistema Acadêmico Online.
             </p>
           </div>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={(e) => handleClick(e)}>
             <TextField
               id="outlined-basic"
               label="RA"
@@ -86,10 +98,10 @@ export default function LoginPage() {
             >
               Esqueceu a senha?
             </Link>
+            <div className="w-full">
+              <button type="submit" className={styles.btnLogin}>Login</button>
+            </div>
           </form>
-          <div className="w-full">
-            <button onClick={() => handleClick()} className={styles.btnLogin}>Login</button>
-          </div>
         </div>
 
         <div className="mt-[2rem]">
