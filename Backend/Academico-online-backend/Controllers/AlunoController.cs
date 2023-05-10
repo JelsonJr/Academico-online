@@ -1,6 +1,5 @@
 ﻿using Academico_online_backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace Academico_online_backend.Controllers;
 
@@ -9,14 +8,12 @@ namespace Academico_online_backend.Controllers;
 public class AlunoController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Login([FromBody] Usuario usuario)
+    public IActionResult Login([FromBody] Login usuario)
     {
-        Console.WriteLine(usuario.Registro);
+        Console.WriteLine(usuario.RA);
         Console.WriteLine(usuario.Senha);
 
-        return Ok();
+        return Ok(new { mensagem = "Login realizado com sucesso!"});
     }
-
-
 }
 
